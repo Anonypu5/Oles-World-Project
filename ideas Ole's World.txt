@@ -1,0 +1,20 @@
+==Major==
+- Multiplayer support(local, host makes the world, unique usernames)
+- Saving the world to a file
+- Multiple worlds (all have/are; saved to file, set to the multiplayer game, and chosen for offline, names)
+
+==Other==
+- Mobs (NPC, enemies)
+- Items doing things to the environment (shovels dig dirt, place dirt in hole to get a dirt tile)
+- Collision with mobs and other non-tile objects
+- Different levels (houses, underground)
+- Better system for item usages (flags for every item type)
+- Items deal more/less damage to tiles and monsters (tools, weapons)
+- Interact with tiles (switches, doors, lava)
+- Multi-tile buildings (houses)
+- Tile interact with the world (grass grows to dirt tiles, water flows into hole tiles)
+
+==Items==
++ interface for usable
+- magic
+- sword attributes

@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name=".dev_Ole's World">
+    <output-path>$PROJECT_DIR$/out/artifacts/_dev_Ole_s_World</output-path>
+    <root id="archive" name=".dev_Ole_s World.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="Ole's World" />
+    </root>
+  </artifact>
+</component>
