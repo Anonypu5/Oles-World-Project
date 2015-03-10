@@ -90,7 +90,7 @@ public class Game extends Canvas implements Runnable {
 		game.frame.add(game);
 		game.frame.pack();
 		game.frame.setLocationRelativeTo(null);
-        game.frame.setVisible(true);
+		game.frame.setVisible(true);
 
 
 		try {
