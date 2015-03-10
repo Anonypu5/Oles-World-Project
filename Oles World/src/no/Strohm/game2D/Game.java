@@ -2,6 +2,7 @@ package no.Strohm.game2D;
 
 import no.Strohm.game2D.Multiplayer.Client;
 import no.Strohm.game2D.Multiplayer.Server;
+import no.Strohm.game2D.audio.Audio;
 import no.Strohm.game2D.graphics.Screen;
 import no.Strohm.game2D.state.State;
 import no.Strohm.game2D.util.FPS;
@@ -54,24 +55,8 @@ public class Game extends Canvas implements Runnable {
 	private boolean fullscreen;
 
 	public static void main(String[] args) {
-//        new Thread(new Runnable() {
-//            // The wrapper thread is unnecessary, unless it blocks on the
-//            // Clip finishing; see comments.
-//            public void run() {
-//                try {
-//                    Clip clip = AudioSystem.getClip();
-//                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-//                            Game.class.getResourceAsStream("/audio/trumpadole.wav"));
-//                    clip.open(inputStream);
-//                    FloatControl gainControl =
-//                            (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-//                    gainControl.setValue(-20f);
-//                    clip.loop(Clip.LOOP_CONTINUOUSLY);
-//                } catch (Exception e) {
-//                    System.err.println(e.getMessage());
-//                }
-//            }
-//        }).start();
+		Audio.test.play();
+
 		String f = System.getProperty("user.home") + "\\AppData\\roaming\\.Ole-s-World";
 		if (!new File(f).exists()) {
 			new File(f).mkdir();
@@ -234,7 +219,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void updateBounds() {
-		if (frame.getWidth() != windowDimension.getWidth() || frame.getHeight() != windowDimension.getHeight()) {
+		if (frame.getWidth() != windowDimension.getWidth() + 50 || frame.getHeight() != windowDimension.getHeight()) {
 			frame.setSize(windowDimension);
 			frame.setLocationRelativeTo(null);
 		}
@@ -265,7 +250,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void setBounds(Dimension window, Dimension screen) {
-		windowDimension.setSize(window);
+		if(window != windowDimension) windowDimension.setSize(window.getWidth() + 50, window.getHeight());
 		frame.setLocationRelativeTo(null);
 		if (screen != screenDimension) screenDimension.setSize(screen.getWidth() / SCALE, screen.getHeight() / SCALE);
 	}
