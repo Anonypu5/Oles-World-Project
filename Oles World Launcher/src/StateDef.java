@@ -64,7 +64,7 @@ public class StateDef extends StateMenu{
         }else{
             URL url = null;
             try {
-                url = new URL("https://github.com/Anonypu5/Oles-World-Project/raw/master/Oles%20World/info.txt");
+                url = new URL("https://github.com/Anonypu5/Oles-World-Project/raw/master/Oles%20World/res/info.txt");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -137,7 +137,7 @@ public class StateDef extends StateMenu{
             JOptionPane.showMessageDialog(null,"You need internet the\nfirst time you open Oles World","ERROR: 3",JOptionPane.ERROR_MESSAGE);System.exit(3);
             System.out.println(m);
         }try {
-            url = new URL("https://github.com/Anonypu5/Oles-World-Project/raw/master/Oles%20World/info.txt"); //File Location goes here
+            url = new URL("https://github.com/Anonypu5/Oles-World-Project/raw/master/Oles%20World/res/info.txt"); //File Location goes here
             con = url.openConnection(); // open the url connection.
             dis = new DataInputStream(con.getInputStream());
             fileData = new byte[con.getContentLength()];
