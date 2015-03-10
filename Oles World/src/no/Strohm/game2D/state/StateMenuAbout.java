@@ -8,6 +8,12 @@ import no.Strohm.game2D.graphics.Screen;
  */
 public class StateMenuAbout extends StateMenu {
 
+	private String[] lines = {
+			"This game was made by:",
+			"Ole Marius Strøhm",
+			"Elias Fyksen"
+	};
+
 	public StateMenuAbout(InputHandler input) {
 		super(1, aboutId, input);
 	}

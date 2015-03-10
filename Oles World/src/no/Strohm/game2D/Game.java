@@ -28,7 +28,7 @@ public class Game extends Canvas implements Runnable {
 	public static ServerSocket isRunningSockets;
 	public static Client client;
 	public static boolean Online = false;
-	public static int SCALE = 5;
+	public static int SCALE = 4;
 	public static int WIDTH = 1280 / SCALE;
 	public static int HEIGHT = (WIDTH / 16) * 10;
 	public static int mapHeight = 10, mapWidth = 10;
@@ -39,6 +39,8 @@ public class Game extends Canvas implements Runnable {
 	private InputHandler input;
 	private Screen screen;
 	private int[] pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
+
+	private boolean fullscreen;
 
 	static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 
@@ -96,7 +98,7 @@ public class Game extends Canvas implements Runnable {
 		game.frame.setLocationRelativeTo(null);
 		game.frame.setVisible(true);
 
-		device.setFullScreenWindow(game.frame);
+		game.setFullscreen(true);
 
 		try {
 			game.frame.setIconImage(ImageIO.read(Game.class.getResourceAsStream("/textures/icon2.png")));
@@ -158,7 +160,7 @@ public class Game extends Canvas implements Runnable {
 		screen.copy(pixels);
 		getGraphics().drawImage(img, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -167,8 +169,11 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void tick() {
-		updateBounds();
 		input.tick();
+		if(input.toggleFullscreen) {
+			setFullscreen(!fullscreen);
+		}
+		updateBounds();
 		State.getCurState().tick();
 	}
 
@@ -194,6 +199,15 @@ public class Game extends Canvas implements Runnable {
 	private void updateBounds() {
 		WIDTH = frame.getWidth() / SCALE;
 		HEIGHT = frame.getHeight() / SCALE;
+	}
+
+	public void setFullscreen(boolean fullscreen) {
+		if(fullscreen) {
+			device.setFullScreenWindow(frame);
+		} else {
+			device.setFullScreenWindow(null);
+		}
+		this.fullscreen = fullscreen;
 	}
 
 }

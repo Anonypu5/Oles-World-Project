@@ -35,6 +35,7 @@ public class StateMenuMain extends StateMenu {
 				}
 				break;
 			case 2:
+				setState(settingsId);
 				break;
 			case 3:
 				setState(instructionsId);

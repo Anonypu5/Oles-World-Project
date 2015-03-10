@@ -8,10 +8,10 @@ import no.Strohm.game2D.util.FPS;
 /**
  * Created by Ole on 22/12/13.
  */
-public class StateMenuOptions extends StateMenu {
+public class StateMenuSettings extends StateMenu {
 
-	public StateMenuOptions(InputHandler input) {
-		super(2, optionsId, input);
+	public StateMenuSettings(InputHandler input) {
+		super(2, settingsId, input);
 	}
 
 	protected void press() {

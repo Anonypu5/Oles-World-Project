@@ -2,6 +2,7 @@ package no.Strohm.game2D.graphics;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -22,7 +23,7 @@ public class SpriteSheet {
 
     private void load(String path) {
         try {
-            BufferedImage img = ImageIO.read(SpriteSheet.class.getResource(path));
+            BufferedImage img = ImageIO.read(SpriteSheet.class.getResourceAsStream(path));
             w = img.getWidth();
             h = img.getHeight();
             pixels = img.getRGB(0, 0, w, h, null, 0, w);

@@ -29,7 +29,7 @@ public class StateMenuPause extends StateMenu {
 				setState(gameId);
 				break;
 			case 1:
-				setState(optionsId);
+				setState(settingsId);
 				break;
 			case 2:
 				setState(instructionsId);

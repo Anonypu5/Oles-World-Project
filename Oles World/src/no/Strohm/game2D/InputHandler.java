@@ -15,10 +15,11 @@ public class InputHandler implements KeyListener {
     public boolean enter;
     public boolean use;
     public boolean attack;
-    public boolean escape;
-    private boolean[] keys = new boolean[120];
-    private boolean[] clickedBuffer = new boolean[120];
-    public boolean[] clicked = new boolean[120];
+	public boolean escape;
+	public boolean toggleFullscreen;
+    private boolean[] keys = new boolean[200];
+    private boolean[] clickedBuffer = new boolean[200];
+    public boolean[] clicked = new boolean[200];
 
 
     public void tick() {
@@ -30,6 +31,7 @@ public class InputHandler implements KeyListener {
         use = keys[KeyEvent.VK_X];
         attack = keys[KeyEvent.VK_C];
         escape = keys[KeyEvent.VK_ESCAPE];
+		toggleFullscreen = keys[KeyEvent.VK_F11];
         for(int i = 0; i < keys.length; i++){
             if(clickedBuffer[i] && !clicked[i]){
                 clicked[i] = true;

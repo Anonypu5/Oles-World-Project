@@ -17,7 +17,7 @@ public abstract class State {
 	public static final int pauseId = 2;
 	public static final int instructionsId = 3;
 	public static final int aboutId = 4;
-	public static final int optionsId = 5;
+	public static final int settingsId = 5;
 	public static final int exitId = 6;
 	public static final int multiplayerId = 7;
 	public static final int joinServerId = 8;
@@ -43,7 +43,7 @@ public abstract class State {
 		new StateMenuPause(input);
 		new StateMenuInstructions(input);
 		new StateMenuAbout(input);
-		new StateMenuOptions(input);
+		new StateMenuSettings(input);
 		new StateMenuExit(input);
 		new StateMenuMultiplayer(input);
 		new StateMenuStartServer(input);
