@@ -73,6 +73,7 @@ public class Launcher extends Canvas implements Runnable {
                 e.printStackTrace();
             }
         }
+
         TEMPSCALE = SCALE;
 
         if(!StateSettings.devBuild){

@@ -65,7 +65,7 @@ public class StateUpdating extends StateMenu{
             System.out.println(m);
         }
         try {
-            url = new URL("https://github.com/Anonypu5/Oles-World-Project/raw/master/Oles%20World/info.txt"); //File Location goes here
+            url = new URL("https://github.com/Anonypu5/Oles-World-Project/raw/master/Oles%20World/res/info.txt"); //File Location goes here
             con = url.openConnection(); // open the url connection.
             dis = new DataInputStream(con.getInputStream());
             fileData = new byte[con.getContentLength()];
@@ -121,7 +121,7 @@ public class StateUpdating extends StateMenu{
         catch(Exception m) {
             System.out.println(m);
         }try {
-            url = new URL("https://github.com/Anonypu5/Oles-World-Project/raw/master/Oles%20World/info.txt"); //File Location goes here
+            url = new URL("https://github.com/Anonypu5/Oles-World-Project/raw/master/Oles%20World/res/info.txt"); //File Location goes here
             con = url.openConnection(); // open the url connection.
             dis = new DataInputStream(con.getInputStream());
             fileData = new byte[con.getContentLength()];
