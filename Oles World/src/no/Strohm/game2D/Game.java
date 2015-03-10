@@ -30,11 +30,20 @@ public class Game extends Canvas implements Runnable {
 	public static Client client;
 	public static boolean Online = false;
 	public static int SCALE = 4;
-	public static int WIDTH = 0;
-	public static int HEIGHT = 0;
+	public static Dimension windowDimension = new Dimension(0, 0);
+	public static Dimension screenDimension = new Dimension(0, 0);
 	public static int mapHeight = 10, mapWidth = 10;
 	private static boolean running = false;
-	private Dimension d = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
+
+	private static final int DIM_FULLSCREEN = 0;
+	private static final int DIM_SMALLEST = 1;
+	private static final int DIM_ALMOST_SMALLEST = 2;
+	private static final Dimension[] dimensions = {
+			new Dimension(1920, 1080),
+			new Dimension(800, 450),
+			new Dimension(1280, 720)
+	};
+
 	private JFrame frame;
 	private InputHandler input;
 	private Screen screen;
@@ -90,16 +99,17 @@ public class Game extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
 
-		WIDTH = 1280 / SCALE;
-		HEIGHT = (WIDTH / 16) * 10;
+		windowDimension.setSize(dimensions[DIM_ALMOST_SMALLEST]);
+
+		screenDimension.setSize(dimensions[DIM_ALMOST_SMALLEST].getWidth() / SCALE, dimensions[DIM_ALMOST_SMALLEST].getHeight() / SCALE);
 
 		Game game = new Game();
-		game.setPreferredSize(game.d);
-		game.setMinimumSize(game.d);
-		game.setMaximumSize(game.d);
+		game.setPreferredSize(dimensions[DIM_ALMOST_SMALLEST]);
+		game.setMinimumSize(dimensions[DIM_SMALLEST]);
+		game.setMaximumSize(dimensions[DIM_FULLSCREEN]);
 
 		game.frame = new JFrame(Game.TITLE);
-		game.frame.setUndecorated(true);
+		game.frame.setUndecorated(false);
 		game.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		game.frame.setResizable(false);
 		game.frame.add(game);
@@ -107,7 +117,8 @@ public class Game extends Canvas implements Runnable {
 		game.frame.setLocationRelativeTo(null);
 		game.frame.setVisible(true);
 
-		game.setFullscreen(true);
+		//game.setFullscreen(true);
+		game.setWindowedFullscreen();
 
 		try {
 			game.frame.setIconImage(ImageIO.read(Game.class.getResourceAsStream("/textures/icon2.png")));
@@ -125,7 +136,9 @@ public class Game extends Canvas implements Runnable {
 	public synchronized void start() {
 		running = true;
 		input = new InputHandler();
-		screen = new Screen(WIDTH, HEIGHT);
+		screen = new Screen(screenDimension);
+		img = new BufferedImage((int) screenDimension.getWidth(), (int) screenDimension.getHeight(), BufferedImage.TYPE_INT_RGB);
+		pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
 		State.init(input);
 
@@ -167,7 +180,7 @@ public class Game extends Canvas implements Runnable {
 		screen.renderArea(0x00A9FF, 0, screen.w, 0, screen.h, false);
 		screen.renderText("Exiting Game!", 50, (HEIGHT - 8) / 2, 0, false);
 		screen.copy(pixels);
-		getGraphics().drawImage(img, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		getGraphics().drawImage(img, 0, 0, (int) windowDimension.getWidth(), (int) windowDimension.getHeight(), null);
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
@@ -205,22 +218,34 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void updateBounds() {
-		if (frame.getWidth() != WIDTH || frame.getHeight() != HEIGHT) {
-			WIDTH = frame.getWidth() / SCALE;
-			HEIGHT = frame.getHeight() / SCALE;
-			img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		if (frame.getWidth() != windowDimension.getWidth() || frame.getHeight() != windowDimension.getHeight()) {
+			frame.setSize(windowDimension);
+		}
+		if(screen.w != screenDimension.getHeight() || screen.h != screenDimension.getHeight()) {
+			img = new BufferedImage((int) screenDimension.getWidth(), (int) screenDimension.getHeight(), BufferedImage.TYPE_INT_RGB);
 			pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
-			screen = new Screen(WIDTH, HEIGHT);
+			screen = new Screen(screenDimension);
 		}
 	}
 
 	public void setFullscreen(boolean fullscreen) {
 		if (fullscreen) {
 			device.setFullScreenWindow(frame);
+			frame.setUndecorated(true);
 		} else {
 			device.setFullScreenWindow(null);
+			frame.setUndecorated(false);
 		}
 		this.fullscreen = fullscreen;
+	}
+
+	public void setWindowedFullscreen() {
+		fullscreen = true;
+		//frame.setUndecorated(true);
+		device.setFullScreenWindow(null);
+		screenDimension.setSize(dimensions[DIM_FULLSCREEN]);
+		frame.setSize(dimensions[DIM_FULLSCREEN]);
+		frame.setLocationRelativeTo(null);
 	}
 
 }
