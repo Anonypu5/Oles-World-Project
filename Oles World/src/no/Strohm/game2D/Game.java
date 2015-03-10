@@ -190,8 +190,8 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void updateBounds() {
-		WIDTH = frame.getWidth();
-		HEIGHT = frame.getHeight();
+		WIDTH = frame.getWidth() / SCALE;
+		HEIGHT = frame.getHeight() / SCALE;
 	}
 
 }
