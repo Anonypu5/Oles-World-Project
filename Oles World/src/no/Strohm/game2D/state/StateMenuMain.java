@@ -15,7 +15,7 @@ public class StateMenuMain extends StateMenu {
 			"Settings",
 			"Instructions",
 			"About",
-			"Exit"
+			"Exite"
 	};
 
 	public StateMenuMain(InputHandler input) {
