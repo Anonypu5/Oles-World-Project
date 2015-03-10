@@ -4,8 +4,8 @@ package no.Strohm.game2D.graphics;
  * Created by Ole on 14/12/13.
  */
 public class Screen {
-	public final int w;
-	public final int h;
+	public int w;
+	public int h;
 	private int xOffset, yOffset;
 	private int[] pixels;
 

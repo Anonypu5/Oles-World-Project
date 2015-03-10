@@ -10,14 +10,24 @@ import no.Strohm.game2D.util.FPS;
  */
 public class StateMenuSettings extends StateMenu {
 
+	private static String[] options = {
+			"show fps: disabled",
+			"back"
+	};
+
 	public StateMenuSettings(InputHandler input) {
-		super(2, settingsId, input);
+		super(options.length, settingsId, input);
 	}
 
 	protected void press() {
 		switch (selected) {
 			case 0:
 				FPS.renderFps = !FPS.renderFps;
+				if(FPS.renderFps) {
+					options[0] = "show fps: enabled";
+				} else {
+					options[0] = "show fps: disabled";
+				}
 				break;
 			case 1:
 				setState(lastState);
@@ -25,9 +35,15 @@ public class StateMenuSettings extends StateMenu {
 		}
 	}
 
+	public void tick() {
+	}
+
 	public void render(Screen screen) {
 		screen.renderArea(0x00A9FF, 0, screen.w, 0, screen.h, false);
-		screen.renderText("renderFps: " + FPS.renderFps, (Game.WIDTH - ("renderFps: " + FPS.renderFps).length() * 8) / 2, 50, getColor(0), false);
-		screen.renderText("Back", screen.w - 50, screen.h - 20, getColor(1), false);
+		screen.renderText("Settings", (screen.w - Game.TITLE.length() * 8) / 2, 50, 0xFF0000, false);
+
+		for (int i = 0; i < options.length; i++) {
+			screen.renderText(options[i], (screen.w - options[i].length() * 8) / 2, screen.h / 2 - 15 + (i * 10), getColor(i), false);
+		}
 	}
 }

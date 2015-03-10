@@ -27,7 +27,8 @@ public class StateMenuAbout extends StateMenu {
 		screen.renderArea(0x00A9FF, 0, screen.w, 0, screen.h, false);
 		screen.renderText("Back", screen.w - 50, screen.h - 20, getColor(0), false);
 
-		screen.renderText("This game was made by:", (screen.w - "This game was made by:".length() * 8) / 2, (screen.h >> 2) - 6, getColor(-1), false);
-		screen.renderText("Ole Marius Strøhm", (screen.w - "Ole Marius Strøhm".length() * 8) / 2, (screen.h >> 2) + 6, getColor(-1), false);
+		for (int i = 0; i < lines.length; i++) {
+			screen.renderText(lines[i], (screen.w - lines[i].length() * 8) / 2, screen.h / 2 - 15 + (i * 10), col1, false);
+		}
 	}
 }
