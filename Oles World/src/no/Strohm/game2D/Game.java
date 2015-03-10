@@ -131,7 +131,7 @@ public class Game extends Canvas implements Runnable {
 		game.setMaximumSize(dimensions[DIM_FULLSCREEN]);
 
 		game.frame = new JFrame(Game.TITLE);
-		game.frame.setUndecorated(true);
+		game.frame.setUndecorated(false);
 		game.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		game.frame.setResizable(false);
 		game.frame.add(game);
@@ -140,7 +140,7 @@ public class Game extends Canvas implements Runnable {
 		game.frame.setVisible(true);
 
 		//game.setFullscreen(true);
-		game.setWindowedFullscreen();
+		//game.setWindowedFullscreen();
 
 		try {
 			game.frame.setIconImage(ImageIO.read(Game.class.getResourceAsStream("/textures/icon2.png")));
@@ -262,16 +262,14 @@ public class Game extends Canvas implements Runnable {
 
 	public void setWindowedFullscreen() {
 		fullscreen = true;
-		//frame.setUndecorated(true);
 		device.setFullScreenWindow(null);
-		screenDimension.setSize((int) dimensions[DIM_FULLSCREEN].getWidth() / SCALE, (int) dimensions[DIM_FULLSCREEN].getHeight() / SCALE);
-		windowDimension.setSize(dimensions[DIM_FULLSCREEN]);
+		setBounds(dimensions[DIM_FULLSCREEN], dimensions[DIM_FULLSCREEN]);
 	}
 
 	public void setBounds(Dimension window, Dimension screen) {
 		windowDimension.setSize(window);
 		frame.setLocationRelativeTo(null);
-		screenDimension.setSize(screen);
+		screenDimension.setSize(screen.getWidth() / SCALE, screen.getHeight() / SCALE);
 	}
 
 }
