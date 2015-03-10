@@ -31,12 +31,12 @@ public class Game extends Canvas implements Runnable {
 	public static ServerSocket isRunningSockets;
 	public static Client client;
 	public static boolean Online = false;
-	public static int SCREEN_OFFSET = 7;
-	public static int SCREEN_OFFSET_F = 7;
+	public static int SCREEN_OFFSET = 9;
+	public static int SCREEN_OFFSET_F = 9;
 	public static int SCALE = 4;
 	public static Dimension windowDimension = new Dimension(0, 0);
 	public static Dimension screenDimension = new Dimension(0, 0);
-	public static int mapHeight = 256, mapWidth = 256;
+	public static int mapHeight = 1000, mapWidth = 1000;
 	private static boolean running = false;
 
 	static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
