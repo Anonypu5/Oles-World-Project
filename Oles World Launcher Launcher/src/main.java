@@ -67,7 +67,8 @@ public class main {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }catch(Exception e){e.printStackTrace();}
+            }catch(Exception e){e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"You need internet the\nfirst time you open Oles World","ERROR: 3",JOptionPane.ERROR_MESSAGE);System.exit(3);}
         }else{
             URL url = null;
             try {
@@ -82,6 +83,12 @@ public class main {
                 scan1 = new Scanner(url.openStream());
                 scan2 = new Scanner(file2);
             } catch (Exception e) {
+                try {
+                    Runtime.getRuntime().exec("cmd /c start "+System.getProperty("user.home")+"\\AppData\\Roaming\\.Ole-s-World"+"\\Oles-World-Launcher.jar");
+                    System.exit(3);
+                } catch (Exception e2) {
+                    e.printStackTrace();
+                }
                 e.printStackTrace();
             }
             if(!scan1.nextLine().equals(scan2.nextLine())){

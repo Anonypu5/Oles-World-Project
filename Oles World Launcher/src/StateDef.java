@@ -22,25 +22,14 @@ public class StateDef extends StateMenu{
     }
 
     public void render(Screen screen) {
+        dir = userDir+"\\AppData\\roaming\\.Ole-s-World\\defaultBuild";
         if(first){
-            dir += userDir+"\\AppData\\roaming";
-            String text = "";
-            if(new File(dir).exists()){
-                System.out.println("roaming exists");
-                dir+="\\.Ole-s-World";
-                if(!new File(dir).exists()){
-                    System.out.println("Ole-s-World does not exists");
-                    new File(dir).mkdir();
-                }
-                dir+="\\defaultBuild";
-                if(!new File(dir).exists()){
-                    System.out.println("defaultBuild does not exists");
-                    new File(dir).mkdir();
-                }
-            }else{
-                System.out.println("roaming does not exist");
-                JOptionPane.showMessageDialog(null, "Please delete this launcher and download it again.\nIf the same thing happens again, please contact support\nat http://grabit.no and tell them you got the error message 1","ERROR: 1", JOptionPane.ERROR_MESSAGE);
+            if(!new File(dir).exists()){
+                System.out.println("defaultBuild does not exists");
+                new File(dir).mkdir();
             }
+            String text = "";
+
             if(StateSettings.forceUp){
                 try{
                     new File(dir+"\\info.txt").delete();
@@ -65,7 +54,7 @@ public class StateDef extends StateMenu{
                         try{
                             Launcher.isRunningSockets.close();
                         }catch(Exception e){}
-                    }catch(Exception e){}
+                    }catch(Exception e2){}
                 }
                 Runtime.getRuntime().exec("cmd /c start " + dir + "\\Ole-s-World.jar");
             } catch (IOException e) {
@@ -86,6 +75,19 @@ public class StateDef extends StateMenu{
                 scan1 = new Scanner(url.openStream());
                 scan2 = new Scanner(file2);
             } catch (Exception e) {
+                try {
+                    if(!StateSettings.devBuild) {
+                        try{
+                            try{
+                                Launcher.isRunningSockets.close();
+                            }catch(Exception e2){}
+                        }catch(Exception e2){}
+                    }
+                    Runtime.getRuntime().exec("cmd /c start "+System.getProperty("user.home")+"\\AppData\\Roaming\\.Ole-s-World"+"\\Oles-World-Launcher.jar");
+                    System.exit(3);
+                } catch (Exception e2) {
+                    e.printStackTrace();
+                }
                 e.printStackTrace();
             }
             if(!scan1.nextLine().substring(0,4).equals(scan2.nextLine().substring(0, 4))){
@@ -132,6 +134,7 @@ public class StateDef extends StateMenu{
             String filePath = dir+"\\Ole-s-World.jar"; //where your jar is located.
         }
         catch(Exception m) {
+            JOptionPane.showMessageDialog(null,"You need internet the\nfirst time you open Oles World","ERROR: 3",JOptionPane.ERROR_MESSAGE);System.exit(3);
             System.out.println(m);
         }try {
             url = new URL("https://github.com/Anonypu5/Oles-World-Project/raw/master/Oles%20World/info.txt"); //File Location goes here

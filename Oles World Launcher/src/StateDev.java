@@ -9,9 +9,7 @@ import java.net.URLConnection;
 import java.util.Scanner;
 
 public class StateDev extends StateMenu{
-
-    private final String userDir = System.getProperty("user.home");
-    private String dir = "";
+    private String dir = System.getProperty("user.home")+"\\AppData\\roaming\\.Ole-s-World\\developerBuild";
     private boolean first = true;
 
     public StateDev(InputHandler input) {
@@ -24,23 +22,6 @@ public class StateDev extends StateMenu{
     public void render(Screen screen) {
         if(first){
             String text = "";
-            dir = userDir+"\\AppData\\roaming";
-            if(new File(dir).exists()){
-                System.out.println("roaming exists");
-                dir+="\\.Ole-s-World";
-                if(!new File(dir).exists()){
-                    System.out.println("Ole-s-World does not exists");
-                    new File(dir).mkdir();
-                }
-                dir+="\\developerBuild";
-                if(!new File(dir).exists()){
-                    System.out.println("Ole-s-World does not exists");
-                    new File(dir).mkdir();
-                }
-            }else{
-                System.out.println("roaming does not exist");
-                JOptionPane.showMessageDialog(null, "Please delete this launcher and download it again.\nIf the same thing happens again, please contact support\nat http://grabit.no and tell them you got the error message 1","ERROR: 1", JOptionPane.ERROR_MESSAGE);
-            }
             if(!new File(dir).exists()){
                 new File(dir).mkdir();
             }
@@ -82,6 +63,12 @@ public class StateDev extends StateMenu{
                 scan1 = new Scanner(url.openStream());
                 scan2 = new Scanner(file2);
             } catch (Exception e) {
+                try {
+                    Runtime.getRuntime().exec("cmd /c start "+System.getProperty("user.home")+"\\AppData\\Roaming\\.Ole-s-World"+"\\Oles-World-Launcher.jar");
+                    System.exit(3);
+                } catch (Exception e2) {
+                    e.printStackTrace();
+                }
                 e.printStackTrace();
             }
             if(!scan1.nextLine().equals(scan2.nextLine())){
@@ -128,6 +115,7 @@ public class StateDev extends StateMenu{
             String filePath = dir+"\\Ole-s-World.jar"; //where your jar is located.
         }
         catch(Exception m) {
+            JOptionPane.showMessageDialog(null,"You need internet the\nfirst time you open Oles World","ERROR: 3",JOptionPane.ERROR_MESSAGE);System.exit(3);
             System.out.println(m);
         }try {
             url = new URL("https://github.com/Anonypu5/Oles-World-Project/raw/master/Oles%20World/info.txt"); //File Location goes here
