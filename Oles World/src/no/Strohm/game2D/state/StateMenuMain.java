@@ -12,6 +12,7 @@ public class StateMenuMain extends StateMenu {
 	private static String[] options = new String[]{
 			"Play Game",
 			"Multiplayer (WIP)",
+			"Settings",
 			"Instructions",
 			"About",
 			"Exit"
@@ -34,12 +35,14 @@ public class StateMenuMain extends StateMenu {
 				}
 				break;
 			case 2:
-				setState(instructionsId);
 				break;
 			case 3:
-				setState(aboutId);
+				setState(instructionsId);
 				break;
 			case 4:
+				setState(aboutId);
+				break;
+			case 5:
 				setState(exitId);
 				break;
 		}

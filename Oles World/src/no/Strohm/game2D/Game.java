@@ -9,10 +9,10 @@ import no.Strohm.game2D.util.FPS;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.*;
-import java.io.BufferedWriter;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Scanner;
@@ -25,10 +25,10 @@ public class Game extends Canvas implements Runnable {
 	public static final String TITLE = "Ole's World", VERSION = "a1.01.9";
 	public static boolean DEV = false;
 	public static Server server;
-    public static ServerSocket isRunningSockets;
+	public static ServerSocket isRunningSockets;
 	public static Client client;
 	public static boolean Online = false;
-	public static int SCALE = 4;
+	public static int SCALE = 5;
 	public static int WIDTH = 1280 / SCALE;
 	public static int HEIGHT = (WIDTH / 16) * 10;
 	public static int mapHeight = 10, mapWidth = 10;
@@ -43,42 +43,44 @@ public class Game extends Canvas implements Runnable {
 	static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 
 	public static void main(String[] args) {
-        String f = System.getProperty("user.home") + "\\AppData\\roaming\\.Ole-s-World";
-        if(!new File(f).exists()){
-            new File(f).mkdir();
-        }
-        f += "\\settings.txt";
-        if(new File(f).exists()){
-            System.out.println("Shit is there: "+f);
-            try {
-                Scanner s = new Scanner(new File(f));
-                if(s.nextLine().equals("1")){
-                    System.out.println("Shit got changed: "+f);
-                    DEV = true;
-                }else{
-                    DEV = false;
-                }
-                String v = s.nextLine();
-                if(v.equals("1")){
-                    SCALE = 1;
-                }else if(v.equals("2")){
-                    SCALE = 2;
-                }else if(v.equals("3")){
-                    SCALE = 3;
-                }else{
-                    SCALE = 4;
-                }
-            }catch(Exception e){e.printStackTrace();}
-        }
+		String f = System.getProperty("user.home") + "\\AppData\\roaming\\.Ole-s-World";
+		if (!new File(f).exists()) {
+			new File(f).mkdir();
+		}
+		f += "\\settings.txt";
+		if (new File(f).exists()) {
+			System.out.println("Shit is there: " + f);
+			try {
+				Scanner s = new Scanner(new File(f));
+				if (s.nextLine().equals("1")) {
+					System.out.println("Shit got changed: " + f);
+					DEV = true;
+				} else {
+					DEV = false;
+				}
+				String v = s.nextLine();
+				if (v.equals("1")) {
+					SCALE = 1;
+				} else if (v.equals("2")) {
+					SCALE = 2;
+				} else if (v.equals("3")) {
+					SCALE = 3;
+				} else {
+					SCALE = 4;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
-        if(!DEV){
-            try {
-                isRunningSockets = new ServerSocket(20163);
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(null,"Seems like Oles World is already running","ERROR: 2",JOptionPane.PLAIN_MESSAGE);
-                System.exit(2);
-            }
-        }
+		if (!DEV) {
+			try {
+				isRunningSockets = new ServerSocket(20163);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Seems like Oles World is already running", "ERROR: 2", JOptionPane.PLAIN_MESSAGE);
+				System.exit(2);
+			}
+		}
 
 		Game game = new Game();
 		game.setPreferredSize(game.d);
