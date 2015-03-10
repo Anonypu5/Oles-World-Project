@@ -24,6 +24,9 @@ public class StateDef extends StateMenu{
     public void render(Screen screen) {
         dir = userDir+"\\AppData\\roaming\\.Ole-s-World\\defaultBuild";
         if(first){
+            if(StateSettings.forceUp){
+                try{new File(dir+"\\info.txt").delete();}catch (Exception e){}
+            }
             if(!new File(dir).exists()){
                 System.out.println("defaultBuild does not exists");
                 new File(dir).mkdir();

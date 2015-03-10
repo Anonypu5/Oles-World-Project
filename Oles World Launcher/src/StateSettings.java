@@ -45,10 +45,11 @@ public class StateSettings extends StateMenu{
             case 1:
                 if(forceUp) {
                     butts[1] = butts[1].substring(0, 14) + "DISABLED";
+                    forceUp = false;
                 }else {
                     butts[1] = butts[1].substring(0, 14) + "ENABLED";
+                    forceUp = true;
                 }
-                forceUp =! forceUp;
                 break;
             case 2:
                     Launcher.TEMPSCALE = Launcher.TEMPSCALE+1>4 ? 1 : Launcher.TEMPSCALE+1;

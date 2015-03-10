@@ -21,6 +21,9 @@ public class StateDev extends StateMenu{
 
     public void render(Screen screen) {
         if(first){
+            if(StateSettings.forceUp){
+                try{new File(dir+"\\info.txt").delete();}catch (Exception e){}
+            }
             String text = "";
             if(!new File(dir).exists()){
                 new File(dir).mkdir();
