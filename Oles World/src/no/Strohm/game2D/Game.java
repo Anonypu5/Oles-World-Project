@@ -131,7 +131,7 @@ public class Game extends Canvas implements Runnable {
 		game.setMaximumSize(dimensions[DIM_FULLSCREEN]);
 
 		game.frame = new JFrame(Game.TITLE);
-		game.frame.setUndecorated(false);
+		game.frame.setUndecorated(true);
 		game.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		game.frame.setResizable(false);
 		game.frame.add(game);
@@ -234,7 +234,7 @@ public class Game extends Canvas implements Runnable {
 
 		Graphics g;
 		g = bs.getDrawGraphics();
-		g.drawImage(img, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		g.drawImage(img, 0, 0, (int) windowDimension.getWidth(), (int) windowDimension.getHeight(), null);
 		g.dispose();
 		bs.show();
 	}
@@ -242,6 +242,7 @@ public class Game extends Canvas implements Runnable {
 	private void updateBounds() {
 		if (frame.getWidth() != windowDimension.getWidth() || frame.getHeight() != windowDimension.getHeight()) {
 			frame.setSize(windowDimension);
+			frame.setLocationRelativeTo(null);
 		}
 		if(screen.w != screenDimension.getHeight() || screen.h != screenDimension.getHeight()) {
 			img = new BufferedImage((int) screenDimension.getWidth(), (int) screenDimension.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -265,9 +266,8 @@ public class Game extends Canvas implements Runnable {
 		fullscreen = true;
 		//frame.setUndecorated(true);
 		device.setFullScreenWindow(null);
-		screenDimension.setSize(dimensions[DIM_FULLSCREEN]);
-		frame.setSize(dimensions[DIM_FULLSCREEN]);
-		frame.setLocationRelativeTo(null);
+		screenDimension.setSize((int) dimensions[DIM_FULLSCREEN].getWidth() / SCALE, (int) dimensions[DIM_FULLSCREEN].getHeight() / SCALE);
+		windowDimension.setSize(dimensions[DIM_FULLSCREEN]);
 	}
 
 }
