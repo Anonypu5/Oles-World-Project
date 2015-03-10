@@ -27,7 +27,7 @@ public class StateUpdateQ extends StateMenu{
                     }
                     System.exit(0);
                 }catch(Exception e){
-                    System.out.println(e);
+                    e.printStackTrace();
                 }
         }
     }

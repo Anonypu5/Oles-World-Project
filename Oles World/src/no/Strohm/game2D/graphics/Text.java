@@ -5,6 +5,6 @@ package no.Strohm.game2D.graphics;
  */
 public class Text {
 
-    public static String text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ      0123456789!?.,:;<>()[]/+'Ø";
+    public static String text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ      0123456789!?.,:;<>()[]/+'Ø_-";
 
 }

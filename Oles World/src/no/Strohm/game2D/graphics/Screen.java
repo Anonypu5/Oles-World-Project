@@ -1,5 +1,7 @@
 package no.Strohm.game2D.graphics;
 
+import no.Strohm.game2D.Game;
+
 import java.awt.*;
 
 /**
@@ -11,9 +13,9 @@ public class Screen {
 	private int xOffset, yOffset;
 	private int[] pixels;
 
-	public Screen(Dimension d) {
+	public Screen(Dimension d, boolean fullscreen) {
 		this.w = (int) d.getWidth();
-		this.h = (int) d.getHeight();
+		this.h = (int) d.getHeight() - (fullscreen ? Game.SCREEN_OFFSET_F : Game.SCREEN_OFFSET);
 		pixels = new int[w * h];
 	}
 
