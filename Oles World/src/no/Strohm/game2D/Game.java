@@ -13,6 +13,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Scanner;
@@ -22,15 +23,16 @@ import java.util.Scanner;
  */
 public class Game extends Canvas implements Runnable {
 
-	public static final String TITLE = "Ole's World", VERSION = "a1.01.9";
+	public static final String TITLE = "Ole's World";
+    public static String VERSION;
 	public static boolean DEV = false;
 	public static Server server;
 	public static ServerSocket isRunningSockets;
 	public static Client client;
 	public static boolean Online = false;
-	public static int SCALE = 5;
-	public static int WIDTH = 1280 / SCALE;
-	public static int HEIGHT = (WIDTH / 16) * 10;
+	public static int SCALE = 4;
+	public static int WIDTH = 0;
+	public static int HEIGHT = 0;
 	public static int mapHeight = 10, mapWidth = 10;
 	private static boolean running = false;
 	private Dimension d = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
@@ -43,7 +45,7 @@ public class Game extends Canvas implements Runnable {
 	static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 
 	public static void main(String[] args) {
-		String f = System.getProperty("user.home") + "\\AppData\\roaming\\.Ole-s-World";
+        String f = System.getProperty("user.home") + "\\AppData\\roaming\\.Ole-s-World";
 		if (!new File(f).exists()) {
 			new File(f).mkdir();
 		}
@@ -81,6 +83,14 @@ public class Game extends Canvas implements Runnable {
 				System.exit(2);
 			}
 		}
+        try {
+            VERSION = DEV ? new Scanner(new File(Game.class.getResource("/info.txt").toURI())).nextLine() : new Scanner(new File(Game.class.getResource("/info.txt").toURI())).nextLine().substring(0,4) ;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        WIDTH = 1280 / SCALE;
+        HEIGHT = (WIDTH / 16) * 10;
 
 		Game game = new Game();
 		game.setPreferredSize(game.d);
