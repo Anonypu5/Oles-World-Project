@@ -9,7 +9,7 @@ import no.Strohm.game2D.graphics.Screen;
  */
 public abstract class StateMenu extends State {
 
-	protected final int selectionCount;
+	protected int selectionCount;
 	protected int pressedTimer = 10;
 	protected int anim = 0;
 	protected int selected = 0;
