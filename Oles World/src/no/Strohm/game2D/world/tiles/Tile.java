@@ -28,7 +28,7 @@ public abstract class Tile {
     public static int voidId = 9000;
     public final String tag;
     protected final Vector2i pos;
-    protected final SpriteSheet sheet = SpriteSheet.tiles;
+    protected static final SpriteSheet sheet = SpriteSheet.tiles;
     public int id;
     public Entity lastHurtByEntity = null;
     protected World world;

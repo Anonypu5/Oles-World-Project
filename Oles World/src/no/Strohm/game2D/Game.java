@@ -57,7 +57,7 @@ public class Game extends Canvas implements Runnable {
 	private boolean fullscreen;
 
 	public static void main(String[] args) {
-		Audio.test.loop();
+		//Audio.test.loop();
 
 		String f = System.getProperty("user.home") + "\\AppData\\roaming\\.Ole-s-World";
 		if (!new File(f).exists()) {

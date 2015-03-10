@@ -144,8 +144,8 @@ public abstract class World {
 	public void tick() {
 		spawner.tick();
 
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < height; x++) {
+		for (int y = (int) getPlayers().get(0).getPos().getY() - 50; y < (int) getPlayers().get(0).getPos().getY() + 50; y++) {
+			for (int x = (int) getPlayers().get(0).getPos().getX() - 50; x < (int) getPlayers().get(0).getPos().getY() + 50; x++) {
 				getTile(x, y).tick();
 			}
 		}
