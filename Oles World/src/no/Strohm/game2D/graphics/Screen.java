@@ -1,5 +1,7 @@
 package no.Strohm.game2D.graphics;
 
+import java.awt.*;
+
 /**
  * Created by Ole on 14/12/13.
  */
@@ -9,9 +11,9 @@ public class Screen {
 	private int xOffset, yOffset;
 	private int[] pixels;
 
-	public Screen(int w, int h) {
-		this.w = w;
-		this.h = h;
+	public Screen(Dimension d) {
+		this.w = (int) d.getWidth();
+		this.h = (int) d.getHeight();
 		pixels = new int[w * h];
 	}
 
