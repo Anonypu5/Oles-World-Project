@@ -254,10 +254,8 @@ public class Game extends Canvas implements Runnable {
 	public void setFullscreen(boolean fullscreen) {
 		if (fullscreen) {
 			device.setFullScreenWindow(frame);
-			frame.setUndecorated(true);
 		} else {
 			device.setFullScreenWindow(null);
-			frame.setUndecorated(false);
 		}
 		this.fullscreen = fullscreen;
 	}
@@ -268,6 +266,12 @@ public class Game extends Canvas implements Runnable {
 		device.setFullScreenWindow(null);
 		screenDimension.setSize((int) dimensions[DIM_FULLSCREEN].getWidth() / SCALE, (int) dimensions[DIM_FULLSCREEN].getHeight() / SCALE);
 		windowDimension.setSize(dimensions[DIM_FULLSCREEN]);
+	}
+
+	public void setBounds(Dimension window, Dimension screen) {
+		windowDimension.setSize(window);
+		frame.setLocationRelativeTo(null);
+		screenDimension.setSize(screen);
 	}
 
 }
