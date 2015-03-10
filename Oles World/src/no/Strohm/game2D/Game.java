@@ -7,10 +7,6 @@ import no.Strohm.game2D.state.State;
 import no.Strohm.game2D.util.FPS;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -39,11 +35,12 @@ public class Game extends Canvas implements Runnable {
 	public static int mapHeight = 10, mapWidth = 10;
 	private static boolean running = false;
 
+	static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 	private static final int DIM_FULLSCREEN = 0;
 	private static final int DIM_SMALLEST = 1;
 	private static final int DIM_ALMOST_SMALLEST = 2;
 	private static final Dimension[] dimensions = {
-			new Dimension(1920, 1080),
+			new Dimension(device.getDisplayMode().getWidth(), device.getDisplayMode().getHeight()),
 			new Dimension(800, 450),
 			new Dimension(1280, 720)
 	};
@@ -55,8 +52,6 @@ public class Game extends Canvas implements Runnable {
 	private int[] pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
 	private boolean fullscreen;
-
-	static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 
 	public static void main(String[] args) {
 //        new Thread(new Runnable() {
@@ -122,16 +117,15 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		windowDimension.setSize(dimensions[DIM_ALMOST_SMALLEST]);
-
 		screenDimension.setSize(dimensions[DIM_ALMOST_SMALLEST].getWidth() / SCALE, dimensions[DIM_ALMOST_SMALLEST].getHeight() / SCALE);
 
 		Game game = new Game();
 		game.setPreferredSize(dimensions[DIM_ALMOST_SMALLEST]);
-		game.setMinimumSize(dimensions[DIM_SMALLEST]);
-		game.setMaximumSize(dimensions[DIM_FULLSCREEN]);
+		game.setMinimumSize(dimensions[DIM_ALMOST_SMALLEST]);
+		game.setMaximumSize(dimensions[DIM_ALMOST_SMALLEST]);
 
 		game.frame = new JFrame(Game.TITLE);
-		game.frame.setUndecorated(false);
+//		game.frame.setUndecorated(true);
 		game.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		game.frame.setResizable(false);
 		game.frame.add(game);
@@ -244,7 +238,7 @@ public class Game extends Canvas implements Runnable {
 			frame.setSize(windowDimension);
 			frame.setLocationRelativeTo(null);
 		}
-		if(screen.w != screenDimension.getHeight() || screen.h != screenDimension.getHeight()) {
+		if (screen.w != screenDimension.getHeight() || screen.h != screenDimension.getHeight()) {
 			img = new BufferedImage((int) screenDimension.getWidth(), (int) screenDimension.getHeight(), BufferedImage.TYPE_INT_RGB);
 			pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 			screen = new Screen(screenDimension);
@@ -253,23 +247,27 @@ public class Game extends Canvas implements Runnable {
 
 	public void setFullscreen(boolean fullscreen) {
 		if (fullscreen) {
+			setBounds(dimensions[DIM_FULLSCREEN], screenDimension);
 			device.setFullScreenWindow(frame);
 		} else {
+			setBounds(dimensions[DIM_ALMOST_SMALLEST], screenDimension);
 			device.setFullScreenWindow(null);
 		}
 		this.fullscreen = fullscreen;
 	}
 
-	public void setWindowedFullscreen() {
-		fullscreen = true;
-		device.setFullScreenWindow(null);
-		setBounds(dimensions[DIM_FULLSCREEN], dimensions[DIM_FULLSCREEN]);
+	public void setWindowedFullscreen(boolean fullscreen) {
+		this.fullscreen = fullscreen;
+		if (fullscreen) {
+			device.setFullScreenWindow(null);
+			setBounds(dimensions[DIM_FULLSCREEN], screenDimension);
+		}
 	}
 
 	public void setBounds(Dimension window, Dimension screen) {
 		windowDimension.setSize(window);
 		frame.setLocationRelativeTo(null);
-		screenDimension.setSize(screen.getWidth() / SCALE, screen.getHeight() / SCALE);
+		if (screen != screenDimension) screenDimension.setSize(screen.getWidth() / SCALE, screen.getHeight() / SCALE);
 	}
 
 }
