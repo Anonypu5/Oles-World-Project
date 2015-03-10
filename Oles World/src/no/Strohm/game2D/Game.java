@@ -24,6 +24,7 @@ import java.util.Scanner;
 public class Game extends Canvas implements Runnable {
 
 	public static final String TITLE = "Ole's World";
+    public static String path;
 	public static String VERSION;
 	public static boolean DEV = false;
 	public static Server server;
@@ -33,7 +34,7 @@ public class Game extends Canvas implements Runnable {
 	public static int SCALE = 4;
 	public static Dimension windowDimension = new Dimension(0, 0);
 	public static Dimension screenDimension = new Dimension(0, 0);
-	public static int mapHeight = 10, mapWidth = 10;
+	public static int mapHeight = 256, mapWidth = 256;
 	private static boolean running = false;
 
 	static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -94,7 +95,11 @@ public class Game extends Canvas implements Runnable {
 				JOptionPane.showMessageDialog(null, "Seems like Oles World is already running", "ERROR: 2", JOptionPane.PLAIN_MESSAGE);
 				System.exit(2);
 			}
-		}
+		}if(DEV){
+            path = System.getProperty("user.home") + "\\AppData\\roaming\\.Ole-s-World\\developerBuild";
+        }else{
+            path = System.getProperty("user.home") + "\\AppData\\roaming\\.Ole-s-World\\defaultBuild";
+        }
 		try {
 			VERSION = DEV ? new Scanner(new File(Game.class.getResource("/info.txt").toURI())).nextLine() : new Scanner(new File(Game.class.getResource("/info.txt").toURI())).nextLine().substring(0, 4);
 		} catch (Exception e) {

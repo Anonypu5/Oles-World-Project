@@ -22,6 +22,7 @@ public abstract class State {
 	public static final int multiplayerId = 7;
 	public static final int joinServerId = 8;
 	public static final int startServerId = 9;
+    public static final int worldsId = 10;
 
 	public static int lastState = 0;
 	public static List<State> states = new ArrayList<State>();
@@ -48,6 +49,7 @@ public abstract class State {
 		new StateMenuMultiplayer(input);
 		new StateMenuStartServer(input);
 		new StateMenuJoinServer(input);
+        new StateMenuWorlds(input);
 	}
 
 	public static void addState(State state) {
