@@ -68,7 +68,7 @@ public class Game extends Canvas implements Runnable {
                 }else{
                     SCALE = 4;
                 }
-            }catch(Exception e){System.out.println(e);}
+            }catch(Exception e){e.printStackTrace();}
         }
 
         if(!DEV){
@@ -94,10 +94,7 @@ public class Game extends Canvas implements Runnable {
 		game.frame.setLocationRelativeTo(null);
 		game.frame.setVisible(true);
 
-<<<<<<< HEAD
 		device.setFullScreenWindow(game.frame);
-=======
->>>>>>> origin/master
 
 		try {
 			game.frame.setIconImage(ImageIO.read(Game.class.getResourceAsStream("/textures/icon2.png")));
