@@ -61,7 +61,11 @@ public class StateDef extends StateMenu{
             downloadDef();
             try {
                 if(!StateSettings.devBuild) {
-                    Launcher.isRunningSockets.close();
+                    try{
+                        try{
+                            Launcher.isRunningSockets.close();
+                        }catch(Exception e){}
+                    }catch(Exception e){}
                 }
                 Runtime.getRuntime().exec("cmd /c start " + dir + "\\Ole-s-World.jar");
             } catch (IOException e) {
@@ -89,7 +93,9 @@ public class StateDef extends StateMenu{
             }else{
                 try {
                     if(!StateSettings.devBuild) {
-                        Launcher.isRunningSockets.close();
+                        try{
+                            Launcher.isRunningSockets.close();
+                        }catch(Exception e){}
                     }
                     Runtime.getRuntime().exec("cmd /c start "+dir+"\\Ole-s-World.jar");
                     System.exit(0);

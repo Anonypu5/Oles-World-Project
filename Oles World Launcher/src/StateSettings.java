@@ -43,7 +43,7 @@ public class StateSettings extends StateMenu{
                 devBuild =! devBuild;
                 break;
             case 1:
-                if(devBuild) {
+                if(forceUp) {
                     butts[1] = butts[1].substring(0, 14) + "DISABLED";
                 }else {
                     butts[1] = butts[1].substring(0, 14) + "ENABLED";

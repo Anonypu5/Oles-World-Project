@@ -82,7 +82,9 @@ public class StateUpdating extends StateMenu{
         }
         try {
             if(!StateSettings.devBuild) {
-                Launcher.isRunningSockets.close();
+                try{
+                    Launcher.isRunningSockets.close();
+                }catch(Exception e){}
             }
             Runtime.getRuntime().exec("cmd /c start "+dir+"\\Ole-s-World.jar");
             System.exit(0);
@@ -136,7 +138,9 @@ public class StateUpdating extends StateMenu{
         }
         try {
             if(!StateSettings.devBuild) {
-                Launcher.isRunningSockets.close();
+                try{
+                    Launcher.isRunningSockets.close();
+                }catch(Exception e){}
             }
             Runtime.getRuntime().exec("cmd /c start "+dir+"\\Ole-s-World.jar");
             System.exit(0);
