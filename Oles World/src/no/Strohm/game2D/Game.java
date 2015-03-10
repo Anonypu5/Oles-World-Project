@@ -40,6 +40,8 @@ public class Game extends Canvas implements Runnable {
 	private Screen screen;
 	private int[] pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
+	static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+
 	public static void main(String[] args) {
         String f = System.getProperty("user.home") + "\\AppData\\roaming\\.Ole-s-World";
         if(!new File(f).exists()){
@@ -84,13 +86,15 @@ public class Game extends Canvas implements Runnable {
 		game.setMaximumSize(game.d);
 
 		game.frame = new JFrame(Game.TITLE);
-		game.frame.setUndecorated(false);
+		game.frame.setUndecorated(true);
 		game.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		game.frame.setResizable(false);
 		game.frame.add(game);
 		game.frame.pack();
 		game.frame.setLocationRelativeTo(null);
 		game.frame.setVisible(true);
+
+		device.setFullScreenWindow(game.frame);
 
 		try {
 			game.frame.setIconImage(ImageIO.read(Game.class.getResourceAsStream("/textures/icon2.png")));
@@ -161,6 +165,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void tick() {
+		updateBounds();
 		input.tick();
 		State.getCurState().tick();
 	}
@@ -176,10 +181,17 @@ public class Game extends Canvas implements Runnable {
 
 		screen.copy(pixels);
 
+
 		Graphics g;
 		g = bs.getDrawGraphics();
 		g.drawImage(img, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g.dispose();
 		bs.show();
 	}
+
+	private void updateBounds() {
+		WIDTH = frame.getWidth();
+		HEIGHT = frame.getHeight();
+	}
+
 }
