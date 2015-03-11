@@ -31,8 +31,6 @@ public class Game extends Canvas implements Runnable {
 	public static ServerSocket isRunningSockets;
 	public static Client client;
 	public static boolean Online = false;
-	public static int SCREEN_OFFSET = 9;
-	public static int SCREEN_OFFSET_F = 9;
 	public static int SCALE = 4;
 	public static Dimension windowDimension = new Dimension(0, 0);
 	public static Dimension screenDimension = new Dimension(0, 0);
@@ -109,7 +107,7 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		windowDimension.setSize(dimensions[DIM_ALMOST_SMALLEST]);
-		screenDimension.setSize(dimensions[DIM_ALMOST_SMALLEST].getWidth() / SCALE, dimensions[DIM_ALMOST_SMALLEST].getHeight() / SCALE - SCREEN_OFFSET);
+		screenDimension.setSize(dimensions[DIM_ALMOST_SMALLEST].getWidth() / SCALE, dimensions[DIM_ALMOST_SMALLEST].getHeight() / SCALE);
 
 		Game game = new Game();
 		game.setPreferredSize(dimensions[DIM_ALMOST_SMALLEST]);
@@ -144,8 +142,8 @@ public class Game extends Canvas implements Runnable {
 	public synchronized void start() {
 		running = true;
 		input = new InputHandler();
-		screen = new Screen(screenDimension, false);
-		img = new BufferedImage((int) screenDimension.getWidth(), (int) screenDimension.getHeight() - SCREEN_OFFSET, BufferedImage.TYPE_INT_RGB);
+		screen = new Screen(screenDimension);
+		img = new BufferedImage((int) screenDimension.getWidth(), (int) screenDimension.getHeight(), BufferedImage.TYPE_INT_RGB);
 		pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
 		State.init(input);
@@ -219,31 +217,32 @@ public class Game extends Canvas implements Runnable {
 
 		Graphics g;
 		g = bs.getDrawGraphics();
-		g.drawImage(img, 0, 0, (int) windowDimension.getWidth(), (int) (windowDimension.getHeight() - (fullscreen ? SCREEN_OFFSET_F : SCREEN_OFFSET) * SCALE), null);
+		g.drawImage(img, 0, 0, (int) windowDimension.getWidth(), (int) windowDimension.getHeight(), null);
 		g.dispose();
 		bs.show();
 	}
 
 	private void updateBounds() {
-		if (frame.getWidth() != windowDimension.getWidth() || frame.getHeight() != windowDimension.getHeight()) {
-			frame.setSize(windowDimension);
+		if (getWidth() != windowDimension.getWidth() || getHeight() != windowDimension.getHeight()) {
+			setSize(windowDimension);
+			frame.pack();
 			frame.setLocationRelativeTo(null);
 		}
-		if (screen.w != screenDimension.getHeight() || screen.h != screenDimension.getHeight() - (fullscreen ? 0 : 50)) {
-			img = new BufferedImage((int) screenDimension.getWidth(), (int) screenDimension.getHeight() - (fullscreen ? SCREEN_OFFSET_F : SCREEN_OFFSET), BufferedImage.TYPE_INT_RGB);
+		if (screen.w != screenDimension.getHeight() || screen.h != screenDimension.getHeight()) {
+			img = new BufferedImage((int) screenDimension.getWidth(), (int) screenDimension.getHeight(), BufferedImage.TYPE_INT_RGB);
 			pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
-			screen = new Screen(screenDimension, fullscreen);
+			screen = new Screen(screenDimension);
 		}
 	}
 
 	public void setFullscreen(boolean fullscreen) {
 		this.fullscreen = fullscreen;
 		if (fullscreen) {
-			setBounds(dimensions[DIM_FULLSCREEN], screenDimension);
 			device.setFullScreenWindow(frame);
+			setBounds(dimensions[DIM_FULLSCREEN], screenDimension);
 		} else {
-			setBounds(dimensions[DIM_ALMOST_SMALLEST], screenDimension);
 			device.setFullScreenWindow(null);
+			setBounds(getPreferredSize(), screenDimension);
 		}
 	}
 
@@ -256,8 +255,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void setBounds(Dimension window, Dimension screen) {
-		if (window != windowDimension) windowDimension.setSize(window.getWidth(), window.getHeight());
-		frame.setLocationRelativeTo(null);
+		windowDimension.setSize(window.getWidth(), window.getHeight());
 		if (screen != screenDimension) screenDimension.setSize(screen.getWidth() / SCALE, screen.getHeight() / SCALE);
 	}
 

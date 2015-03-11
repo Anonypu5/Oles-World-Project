@@ -13,9 +13,9 @@ public class Screen {
 	private int xOffset, yOffset;
 	private int[] pixels;
 
-	public Screen(Dimension d, boolean fullscreen) {
+	public Screen(Dimension d) {
 		this.w = (int) d.getWidth();
-		this.h = (int) d.getHeight() - (fullscreen ? Game.SCREEN_OFFSET_F : Game.SCREEN_OFFSET);
+		this.h = (int) d.getHeight();
 		pixels = new int[w * h];
 	}
 
