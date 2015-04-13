@@ -10,7 +10,7 @@ public class Main {
     public static JFrame jFrame;
     private static JTextArea mainTextArea;
     private static JTextField jTextField;
-    public static final String path = System.getProperty("user.home")+"\\.Ole-s-World";
+    public static final String path = System.getProperty("user.home")+"\\AppData\\Roaming\\.Ole-s-World\\Server";
 
     public static void main(String[] args){
         jFrame = new JFrame("Oles World Server");
@@ -32,7 +32,7 @@ public class Main {
             println("Successfully located directory ");
         }else{
             println("Were not able to located directory "+path+", preceding to create one");
-            directory.mkdir();
+            directory.mkdirs();
         }
     }
 
